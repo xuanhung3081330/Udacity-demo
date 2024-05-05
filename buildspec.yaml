@@ -3,11 +3,13 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      aws ecr get-login-password | docker login --username AWS --password-stdin ${AccountId}.dkr.ecr.${Region}.amazonaws.com
+      - aws ecr get-login-password | docker login --username AWS --password-stdin ${AccountId}.dkr.ecr.${Region}.amazonaws.com
   build:
     commands:
-      docker build -t test-coworking-analytics -f Dockerfile
-      docker tag test-coworking-analytics ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
+      - IMAGE_NAME="test-coworking-analytics"
+      - docker build -t ${IMAGE_NAME} .
+      - docker tag ${IMAGE_NAME} ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
   post_build:
     commands:
-      docker push ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
+      - docker images
+      - docker push ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}

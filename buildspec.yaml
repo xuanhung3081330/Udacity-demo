@@ -12,4 +12,3 @@ phases:
   post_build:
     commands:
       docker push ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
-artifacts:

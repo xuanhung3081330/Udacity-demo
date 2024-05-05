@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      aws ecr get-login-password --endpoint-url ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo} | docker login --username AWS --password-stdin ${AccountId}.dkr.ecr.${Region}.amazonaws.com
+      aws ecr get-login-password | docker login --username AWS --password-stdin ${AccountId}.dkr.ecr.${Region}.amazonaws.com
   build:
     commands:
       IMAGE_NAME="test-coworking-analytics"

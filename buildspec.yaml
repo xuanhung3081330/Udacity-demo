@@ -6,9 +6,8 @@ phases:
       aws ecr get-login-password | docker login --username AWS --password-stdin ${AccountId}.dkr.ecr.${Region}.amazonaws.com
   build:
     commands:
-      IMAGE_NAME="test-coworking-analytics"
-      docker build -t ${IMAGE_NAME} .
-      docker tag ${IMAGE_NAME} ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
+      docker build -t test-coworking-analytics .
+      docker tag test-coworking-analytics ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
   post_build:
     commands:
       docker push ${AccountId}.dkr.ecr.${Region}.amazonaws.com/${Repo}:${CODEBUILD_BUILD_NUMBER}
